@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a th:href="@{/clothe/2}">
+                    <img class="d-block w-100" src="https://i.postimg.cc/FRk4GRMd/2023-08-20-194025438.png" alt="First slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{/clothe/3}">
+                    <img class="d-block w-100" src="https://i.postimg.cc/y6TftB7k/2023-08-20-194218398.png" alt="Second slide">
+                </a>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Назад</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Вперед</span>
+        </a>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-5">
+                    <a th:href="${'/clothe?type=Чехол для очков'}">
+                        <img class="img-fluid" src="https://i.postimg.cc/y8jqh5NZ/image.jpg">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-5">
+                    <a th:href="${'/clothe?type=Ремень'}">
+                        <img class="img-fluid" src="https://i.postimg.cc/C5kXRrtd/image.jpg">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center my-3">
+        <h4>ПЕРСОНАЛЬНЫЕ РЕКОМЕНАДАЦИИ</h4>
+    </div>
+    <div class="container mt-5">
+        <form method="get" action="/clothe/popular">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="perfumeCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    <div class="row" th:fragment="list">
+                                        <th:block th:replace="fragments/clothes-fragments :: clothe-item(${clothes[0]})"/>
+                                        <th:block th:replace="fragments/clothes-fragments :: clothe-item(${clothes[1]})"/>
+<!--                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[2]})"/>-->
+<!--                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[3]})"/>-->
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="carousel-item">-->
+<!--                                <div class="container">-->
+<!--                                    <div class="row" th:fragment="list">-->
+<!--                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${clothes[0]})"/>-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[5]})"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[6]})"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[7]})"/>&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="carousel-item">-->
+<!--                                <div class="container">-->
+<!--                                    <div class="row" th:fragment="list">-->
+<!--                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${clothes[0]})"/>-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[9]})"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[10]})"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <th:block th:replace="fragments/perfumes-fragments :: clothe-item(${perfumes[11]})"/>&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <th:block th:replace="fragments/common-fragments :: carousel-indicators('#perfumeCarousel')"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>

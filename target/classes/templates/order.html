@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <div class="row mx-3">
+                <th:block th:replace="fragments/account-fragments :: account-sidebar"/>
+                <div class="col-md-10">
+                    <div class="container mb-5">
+                        <th:block th:replace="fragments/common-fragments :: info-title(
+                            text='Заказ #' + ${order.getId()},
+                            titleClass='text-center',
+                            icon='fas fa-shopping-bag'
+                        )"/>
+                        <div class="row border my-5 px-5 py-3">
+                            <div class="col-md-6">
+                                <h5 class="manage_user_order_subtitle">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Информация о клиентах
+                                </h5>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Имя', text=${order.getFirstName()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Фамилия', text=${order.getLastName()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Город', text=${order.getCity()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Адрес', text=${order.getAddress()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Email', text=${order.getEmail()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Номер телефона', text=${order.getPhoneNumber()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Почтовый индекс', text=${order.getPostIndex()})"/>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="manage_user_order_subtitle">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Информация о заказе
+                                </h5>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Номер заказа', text=${order.getId()})"/>
+                                <th:block th:replace="fragments/common-fragments :: data-item(title='Дата заказа', text=${#temporals.format(order.getDate(), 'yyyy-MM-dd HH:mm')})"/>
+                                <h4 class="manage_user_order_summary">
+                                    Сумма заказа:
+                                    <span class="manage_user_order_summary_price" th:text="'₽ ' + ${order.getTotalPrice()} + '0'"></span>
+                                </h4>
+                            </div>
+                        </div>
+                        <table class="table border text-center">
+                            <thead class="table-active">
+                            <tr>
+                                <th>Номер</th>
+                                <th>Тип</th>
+                                <th>Название</th>
+                                <th>Цена</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="clothe : ${order.getClothes()}">
+                            <tr>
+                                <th>
+                                    <a th:href="@{/clothe/{clotheId} (clotheId = ${clothe.getId()})}" th:text="${clothe.getId()}"></a>
+                                </th>
+                                <th th:text="${clothe.getType()}"></th>
+                                <th th:text="${clothe.getClotheTitle()}"></th>
+                                <th th:text="'₽' + ${clothe.getPrice()} + '.00'"></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>

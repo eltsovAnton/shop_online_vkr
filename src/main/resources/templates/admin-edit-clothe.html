@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <div class="row mx-3">
+                <th:block th:replace="fragments/account-fragments :: account-sidebar"/>
+                <div class="col-md-9 mb-5">
+                    <th:block th:replace="fragments/common-fragments :: info-title(
+                        text='Edit clothe',
+                        icon='fas fa-edit mr-2'
+                    )"/>
+                    <br/>
+                    <form method="post" action="/admin/edit/clothe" enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:value="${clothe.id}"/>
+                        <div class="form row">
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Название',
+                                name='clotheTitle',
+                                placeholder='Enter the clothe title',
+                                value=${clothe.clotheTitle},
+                                error=${clotheTitleError}
+                            )"/>
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Пол',
+                                name='clotheGender',
+                                placeholder='Enter the clothe gender',
+                                value=${clothe.clotheGender},
+                                error=${clotheGenderError}
+                            )"/>
+                        </div>
+                        <div class="form row mt-3">
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Цвет',
+                                name='clotheColor',
+                                placeholder='Enter the clothe color',
+                                value=${clothe.clotheColor},
+                                error=${clotheColorError}
+                            )"/>
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Описание',
+                                name='description',
+                                placeholder='Enter the description',
+                                value=${clothe.description},
+                                error=${descriptionError}
+                            )"/>
+                        </div>
+                        <div class="form row mt-3">
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Цена',
+                                name='price',
+                                placeholder='Enter the price',
+                                value=${clothe.price},
+                                error=${priceError}
+                            )"/>
+                            <th:block th:replace="fragments/account-fragments :: edit-clothe-input(
+                                title='Тип',
+                                name='type',
+                                placeholder='Enter the type',
+                                value=${clothe.type},
+                                error=${typeError}
+                            )"/>
+                        </div>
+                        <div class="form row mt-3">
+                            <div class="col" style="margin-top: 35px">
+                                <div th:if="${clothe.filename}">
+                                    <img th:src="@{/img/{path} (path = ${clothe.filename})}"
+                                         class="rounded mx-auto w-100 mb-2"/>
+                                </div>
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                        <th:block th:replace="fragments/common-fragments :: icon-button(
+                            text='Edit',
+                            buttonClassName='mt-3',
+                            icon='fas fa-edit mr-2'
+                        )"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>

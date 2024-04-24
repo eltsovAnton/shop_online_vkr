@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table {
+            border-collapse: collapse;
+            width: 600px;
+            border-radius: 50px;
+            border: 1px solid #dee2e6;
+        }
+        .header {
+            width: 260px;
+            vertical-align: center;
+        }
+        .content {
+            height: 110px;
+            vertical-align: center;
+            padding: 0 15px
+        }
+        hr {
+            border: none;
+            color: #dee2e6;
+            background-color: #dee2e6;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+<table align="center" class="table">
+    <tr>
+        <td style="background-color: #ffffff; padding: 40px 30px 40px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td class="header" align="center">
+                        <h3>Заказ # <span th:text="${order.getId()}" th:remove="tag"></span></h3>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <h3 style="text-align: center">Привет <span th:text="${order.getFirstName()}" th:remove="tag"></span>!</h3>
+            <p style="text-align: center">Спасибо, что совершили заказ в WOLF| Кожанные вещи рунчой работы.</p>
+            <hr/>
+            <div class="text-left">
+                <p><b>Ваш заказ номер: <span th:text="${order.getId()}" th:remove="tag"></span></b></p>
+                <p><b>Дата:</b> <span th:text="${#temporals.format(order.getDate(), 'yyyy-MM-dd HH:mm')}" th:remove="tag"></span></p>
+                <p><b>Имя:</b> <span th:text="${order.getFirstName() + ' ' + order.getLastName()}"
+                                      th:remove="tag"></span></p>
+                <p><b>Адрес:</b> <span th:text="${order.getCity() + ' ' + order.getAddress()}" th:remove="tag"></span>
+                </p>
+                <p><b>Индекс:</b> <span th:text="${order.getPostIndex()}" th:remove="tag"></span></p>
+                <p><b>Телефон:</b> <span th:text="${order.getPhoneNumber()}" th:remove="tag"></span></p>
+            </div>
+            <th:block th:each="clothe : ${order.getClothes()}">
+                <hr/>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                    <tr>
+<!--                        <td style="width: 95px;" class="content">-->
+<!--                            <img style="width: 100%; height: auto"-->
+<!--                                 th:src="@{/static/img/{path}(path=${clothe.getFilename()})}"-->
+<!--                            />-->
+<!--                        </td>-->
+                        <td style="width: 179px;" class="content">
+                            <p>
+                                <b th:text="${clothe.getClotheGender()}"></b><br/>
+                                <span style="font-size: 14px">
+                        <span th:text="${clothe.getClotheTitle()}" th:remove="tag"></span><br/>
+                        <span th:text="${clothe.getType()}" th:remove="tag"></span><br/>
+                        <span th:text="${clothe.getPrice()}"></span> ₽</span>
+                            </p>
+                        </td>
+                        <td style="width: 54px;" class="content">
+                            <span th:text="${clothe.getPrice()}"></span> ₽
+                        </td>
+                    </tr>
+                </table>
+            </th:block>
+            <hr/>
+            <h3>Цена: заказа ₽ <span th:text="${order.getTotalPrice()}" th:remove="tag"></span></h3>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

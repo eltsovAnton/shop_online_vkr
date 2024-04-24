@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+  <div class="container d-flex bg-white shadow-sm">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Товары</h3>
+      </div>
+      <form action="/clothe" method="get">
+        <ul class="list-unstyled components">
+<!--          <h5>Тип</h5>-->
+<!--          <li class="active mb-2" id="homeSubmenu">-->
+<!--            <ul class="list-unstyled">-->
+<!--              <li th:insert="fragments/perfumes-fragments :: clothes-type-checkbox('Сумка')"></li>-->
+<!--              <li th:insert="fragments/perfumes-fragments :: clothes-type-checkbox('Очки')"></li>-->
+<!--              <li th:insert="fragments/perfumes-fragments :: clothes-type-checkbox('Ремень')"></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+          <h5>Пол</h5>
+          <li class="active mb-2">
+            <ul class="list-unstyled">
+              <li th:insert="fragments/clothes-fragments :: perfumes-gender-checkbox('Женские')"></li>
+              <li th:insert="fragments/clothes-fragments :: perfumes-gender-checkbox('Мужские')"></li>
+            </ul>
+          </li>
+          <h5>Цена</h5>
+          <li class="active mb-2">
+            <ul class="list-unstyled">
+              <li th:insert="fragments/clothes-fragments :: perfumes-price-checkbox(startingPrice=0, endingPrice=1500)"></li>
+              <li th:insert="fragments/clothes-fragments :: perfumes-price-checkbox(startingPrice=1500, endingPrice=3000)"></li>
+              <li th:insert="fragments/clothes-fragments :: perfumes-price-checkbox(startingPrice=3000, endingPrice=5000)"></li>
+              <li th:insert="fragments/clothes-fragments :: perfumes-price-checkbox(startingPrice=5000, endingPrice=10000)"></li>
+              <li th:insert="fragments/clothes-fragments :: perfumes-price-checkbox(startingPrice=10000, endingPrice=2000)"></li>
+            </ul>
+          </li>
+        </ul>
+      </form>
+    </nav>
+      <div class="container mb-5">
+          <div class="container-fluid mt-5 ml-1">
+              <form action="/clothe/search" method="get" style="justify-content: center">
+                  <th:block th:replace="~{fragments/common-fragments :: search(
+                        options=(${ {
+                            { 'value': 'type', 'text': 'Тип' },
+                            { 'value': 'clotheTitle', 'text': 'Название' }
+                        } })
+                    )}"/>
+              </form>
+          </div>
+
+      <div class="mt-4 ml-1">
+        <th:block th:replace="~{fragments/common-fragments :: pagination(class='mx-3')}"/>
+        <div class="container-fluid">
+          <div class="row" th:fragment="list">
+            <th:block th:if="${page.getContent().size() == 0}"
+                      th:insert="~{fragments/common-fragments :: empty-result(text='Товары отсутствуют')}"/>
+            <th:block th:unless="${page.getContent().size() == 0}" th:each="clothe : ${page.getContent()}">
+              <th:block th:replace="fragments/clothes-fragments :: clothe-item(${clothe})"/>
+            </th:block>
+          </div>
+        </div>
+        <th:block th:if="${page.getContent().size() != 0}">
+          <th:block th:replace="~{fragments/common-fragments :: pagination(class='mx-3')}"/>
+        </th:block>
+      </div>
+    </div>
+  </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>
